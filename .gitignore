@@ -1,0 +1,53 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Virtual environments and packaging output
+.venv/
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Environment and local configuration
+.env
+.env.*
+!.env.example
+odoo.conf
+*.log
+*.pid
+
+# Odoo runtime data and local databases
+filestore/
+sessions/
+*.db
+*.sqlite
+*.sqlite3
+
+# Test and coverage reports
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+test-results/
+
+# Spec-driven development generated artifacts
+specs/generated/
+specs/.cache/
+reports/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
