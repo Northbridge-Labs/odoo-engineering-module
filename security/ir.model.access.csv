@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_engineering_project_eng,engineering.project.engineering,model_engineering_project,group_engineering_user,1,1,1,1
+access_engineering_project_comm,engineering.project.commercial,model_engineering_project,group_commercial_user,1,1,0,0
+access_engineering_bom_eng,engineering.bom.engineering,model_engineering_bom,group_engineering_user,1,1,1,1
+access_engineering_bom_comm,engineering.bom.commercial,model_engineering_bom,group_commercial_user,1,0,0,0
+access_engineering_bom_line_eng,engineering.bom.line.engineering,model_engineering_bom_line,group_engineering_user,1,1,1,1
+access_engineering_bom_line_comm,engineering.bom.line.commercial,model_engineering_bom_line,group_commercial_user,1,0,0,0
+access_engineering_boq_eng,engineering.boq.engineering,model_engineering_boq,group_engineering_user,1,1,1,1
+access_engineering_boq_comm,engineering.boq.commercial,model_engineering_boq,group_commercial_user,1,0,0,0
+access_engineering_boq_line_eng,engineering.boq.line.engineering,model_engineering_boq_line,group_engineering_user,1,1,1,1
+access_engineering_boq_line_comm,engineering.boq.line.commercial,model_engineering_boq_line,group_commercial_user,1,0,0,0
+access_engineering_mo_service_line,engineering.mo.service.line,model_engineering_mo_service_line,group_engineering_user,1,1,1,1
+access_engineering_mo_service_line_comm,engineering.mo.service.line.commercial,model_engineering_mo_service_line,group_commercial_user,1,0,0,0
+access_engineering_request_revision_wizard,engineering.request.revision.wizard,model_engineering_request_revision_wizard,group_commercial_user,1,1,1,1

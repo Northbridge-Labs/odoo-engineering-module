@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Engineering application category (declared first so group
+             references resolve at install time). -->
+        <record id="base.module_category_services_engineering" model="ir.module.category">
+            <field name="name">Engineering</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="group_engineering_user" model="res.groups">
+            <field name="name">Engineering User</field>
+            <field name="category_id" ref="base.module_category_services_engineering"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_commercial_user" model="res.groups">
+            <field name="name">Commercial User</field>
+            <field name="category_id" ref="base.module_category_services_engineering"/>
+            <field name="implied_ids" eval="[(4, ref('group_engineering_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_engineering_project" model="ir.sequence">
+            <field name="name">Engineering Project</field>
+            <field name="code">eng.project</field>
+            <field name="prefix">ENG/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_engineering_bom" model="ir.sequence">
+            <field name="name">Engineering BoM</field>
+            <field name="code">eng.bom</field>
+            <field name="prefix">BOM/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_engineering_boq" model="ir.sequence">
+            <field name="name">Engineering BoQ</field>
+            <field name="code">eng.boq</field>
+            <field name="prefix">BOQ/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Extend sale.order form with engineering fields. -->
+        <record id="view_engineering_sale_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form.engineering</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//div[@class='oe_title']" position="after">
+                    <group string="Engineering" name="engineering_group"
+                           invisible="not engineering_project_id">
+                        <field name="engineering_project_id" readonly="1"/>
+                        <field name="internal_cost" readonly="1"/>
+                        <field name="markup_percent"
+                               invisible="state != 'draft'"/>
+                        <field name="final_estimate_price" readonly="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Action window for engineering quotations (filtered). -->
+        <record id="action_engineering_quotations" model="ir.actions.act_window">
+            <field name="name">Engineering Quotations</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">list,form,calendar,graph,pivot</field>
+            <field name="domain">[('engineering_project_id', '!=', False)]</field>
+            <field name="context">{'default_type': 'sale'}</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+        </record>
+
+        <menuitem id="menu_engineering_quotations_action"
+                  name="Quotations"
+                  parent="menu_engineering_quotations"
+                  action="action_engineering_quotations"
+                  sequence="10"
+                  groups="group_commercial_user"/>
+
+    </data>
+</odoo>

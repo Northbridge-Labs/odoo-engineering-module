@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Shared "Engineering Project" product template.
+             Reused as (a) the mrp.bom finished good and (b) the single
+             summary sale.order.line product on the engineering quotation.
+             Type = service: usable as a sale.order.line product; for the
+             mrp.bom finished good, MRP accepts service-type finished
+             goods whose components are stockable (the produced quantity
+             is informational). If the active Odoo 18 build rejects a
+             service-type finished good on mrp.bom, the implementation
+             of _generate_mo() will fall back to a consu-type variant
+             declared below as product_engineering_project_finished_good.
+        -->
+        <record id="product_engineering_project_template" model="product.template">
+            <field name="name">Engineering Project</field>
+            <field name="type">service</field>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="invoice_policy">order</field>
+            <field name="purchase_line_warn">no-message</field>
+        </record>
+
+        <!-- Optional consu-type finished-good fallback for MRP.
+             Declared up-front so the _generate_mo() implementation can
+             reference it via ref('engineering.product_engineering_project_finished_good')
+             if the service-type product is rejected by mrp.bom.
+        -->
+        <record id="product_engineering_project_finished_good_template" model="product.template">
+            <field name="name">Engineering Project (Finished Good)</field>
+            <field name="type">consu</field>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="invoice_policy">order</field>
+        </record>
+
+    </data>
+</odoo>

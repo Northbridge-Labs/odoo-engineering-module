@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Demo engineering project with a BoM (3 material lines) and
+             a BoQ (2 service lines). For demonstration ONLY — no test
+             depends on this data (tests create their own fixtures). -->
+
+        <record id="demo_partner" model="res.partner">
+            <field name="name">Demo Customer</field>
+        </record>
+
+        <record id="demo_material_steel" model="product.product">
+            <field name="name">Steel Beam (Demo)</field>
+            <field name="type">consu</field>
+            <field name="standard_price">50.0</field>
+        </record>
+
+        <record id="demo_material_concrete" model="product.product">
+            <field name="name">Concrete Bag (Demo)</field>
+            <field name="type">consu</field>
+            <field name="standard_price">8.0</field>
+        </record>
+
+        <record id="demo_material_paint" model="product.product">
+            <field name="name">Paint Gallon (Demo)</field>
+            <field name="type">consu</field>
+            <field name="standard_price">25.0</field>
+        </record>
+
+        <record id="demo_service_welding" model="product.product">
+            <field name="name">Welding Service (Demo)</field>
+            <field name="type">service</field>
+            <field name="standard_price">30.0</field>
+        </record>
+
+        <record id="demo_service_painting" model="product.product">
+            <field name="name">Painting Service (Demo)</field>
+            <field name="type">service</field>
+            <field name="standard_price">20.0</field>
+        </record>
+
+        <record id="demo_project" model="engineering.project">
+            <field name="partner_id" ref="demo_partner"/>
+        </record>
+
+        <record id="demo_bom" model="engineering.bom">
+            <field name="project_id" ref="demo_project"/>
+        </record>
+
+        <record id="demo_bom_line_1" model="engineering.bom.line">
+            <field name="bom_id" ref="demo_bom"/>
+            <field name="product_id" ref="demo_material_steel"/>
+            <field name="product_qty">10.0</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        </record>
+
+        <record id="demo_bom_line_2" model="engineering.bom.line">
+            <field name="bom_id" ref="demo_bom"/>
+            <field name="product_id" ref="demo_material_concrete"/>
+            <field name="product_qty">50.0</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        </record>
+
+        <record id="demo_bom_line_3" model="engineering.bom.line">
+            <field name="bom_id" ref="demo_bom"/>
+            <field name="product_id" ref="demo_material_paint"/>
+            <field name="product_qty">5.0</field>
+            <field name="product_uom_id" ref="uom.product_uom_unit"/>
+        </record>
+
+        <record id="demo_boq" model="engineering.boq">
+            <field name="project_id" ref="demo_project"/>
+        </record>
+
+        <record id="demo_boq_line_1" model="engineering.boq.line">
+            <field name="boq_id" ref="demo_boq"/>
+            <field name="product_id" ref="demo_service_welding"/>
+            <field name="product_qty">20.0</field>
+            <field name="product_uom_id" ref="uom.product_uom_hour"/>
+        </record>
+
+        <record id="demo_boq_line_2" model="engineering.boq.line">
+            <field name="boq_id" ref="demo_boq"/>
+            <field name="product_id" ref="demo_service_painting"/>
+            <field name="product_qty">15.0</field>
+            <field name="product_uom_id" ref="uom.product_uom_hour"/>
+        </record>
+
+    </data>
+</odoo>

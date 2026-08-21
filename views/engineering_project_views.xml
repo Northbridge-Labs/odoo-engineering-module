@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Engineering Project: list view -->
+        <record id="view_engineering_project_list" model="ir.ui.view">
+            <field name="name">engineering.project.list</field>
+            <field name="model">engineering.project</field>
+            <field name="arch" type="xml">
+                <list string="Engineering Projects">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="state"/>
+                    <field name="revision_number"/>
+                    <field name="is_current_revision"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Engineering Project: form view -->
+        <record id="view_engineering_project_form" model="ir.ui.view">
+            <field name="name">engineering.project.form</field>
+            <field name="model">engineering.project</field>
+            <field name="arch" type="xml">
+                <form string="Engineering Project">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,sent_to_commercial,approved,manufacturing,rejected"/>
+                        <button name="action_send_to_commercial" type="object"
+                                string="Send to Commercial" class="oe_highlight"
+                                invisible="state != 'draft'"
+                                groups="engineering.group_engineering_user"/>
+                        <button name="%(engineering.action_engineering_request_revision_wizard)d"
+                                type="action"
+                                string="Request Revision"
+                                invisible="state != 'sent_to_commercial'"
+                                groups="engineering.group_commercial_user"/>
+                        <button name="action_re_quote" type="object"
+                                string="Re-quote"
+                                invisible="state != 'rejected'"
+                                groups="engineering.group_commercial_user"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_quotation" type="object"
+                                    class="oe_stat_button" icon="fa-pencil-square-o"
+                                    invisible="not sale_order_id">
+                                <field name="sale_order_id" widget="statinfo"
+                                       string="Quotation"/>
+                            </button>
+                            <button name="action_open_mo" type="object"
+                                    class="oe_stat_button" icon="fa-cogs"
+                                    invisible="not mrp_production_id">
+                                <field name="mrp_production_id" widget="statinfo"
+                                       string="MO"/>
+                            </button>
+                            <button name="action_open_project" type="object"
+                                    class="oe_stat_button" icon="fa-tasks"
+                                    invisible="not project_id">
+                                <field name="project_id" widget="statinfo"
+                                       string="Project"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"
+                                       readonly="state != 'draft'"/>
+                                <field name="revision_number" readonly="1"/>
+                                <field name="is_current_revision" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="sale_order_id" readonly="1"/>
+                                <field name="mrp_production_id" readonly="1"/>
+                                <field name="project_id" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Bill of Materials" name="bom_page">
+                                <field name="bom_ids" readonly="state != 'draft'"/>
+                            </page>
+                            <page string="Bill of Quantities" name="boq_page">
+                                <field name="boq_ids" readonly="state != 'draft'"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action window -->
+        <record id="action_engineering_project" model="ir.actions.act_window">
+            <field name="name">Engineering Projects</field>
+            <field name="res_model">engineering.project</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new engineering project
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu item under Engineering > Projects -->
+        <menuitem id="menu_engineering_projects_action"
+                  name="Projects"
+                  parent="menu_engineering_projects"
+                  action="action_engineering_project"
+                  sequence="10"/>
+
+    </data>
+</odoo>

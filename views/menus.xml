@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <menuitem id="menu_engineering_root"
+                  name="Engineering"
+                  sequence="20"
+                  web_icon="engineering,static/description/icon.png"
+                  groups="group_engineering_user"/>
+
+        <menuitem id="menu_engineering_projects"
+                  name="Projects"
+                  parent="menu_engineering_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_engineering_bom"
+                  name="Bill of Materials"
+                  parent="menu_engineering_root"
+                  sequence="20"/>
+
+        <menuitem id="menu_engineering_boq"
+                  name="Bill of Quantities"
+                  parent="menu_engineering_root"
+                  sequence="30"/>
+
+        <menuitem id="menu_engineering_quotations"
+                  name="Quotations"
+                  parent="menu_engineering_root"
+                  sequence="40"
+                  groups="group_commercial_user"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Customer-facing engineering quotation report.
+             Renders ONLY the project name, customer, and
+             final_estimate_price (SC-003). Inherits sale's report
+             layout but overrides the lines section. -->
+        <record id="action_report_quotation" model="ir.actions.report">
+            <field name="name">Engineering Quotation</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">engineering.report_quotation_document</field>
+            <field name="report_file">engineering.report_quotation_document</field>
+            <field name="print_report_name">'Engineering Quotation - %s' % (object.engineering_project_id.display_name or object.name)</field>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_quotation_document">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Engineering Quotation</h2>
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <strong>Project:</strong>
+                                <span t-field="object.engineering_project_id.display_name"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>Customer:</strong>
+                                <span t-field="object.partner_id.display_name"/>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12 text-end">
+                                <h3>
+                                    <strong>Final Project Estimate Price: </strong>
+                                    <span t-field="object.final_estimate_price"
+                                          t-options='{"widget": "monetary", "display_currency": object.pricelist_id.currency_id}'/>
+                                </h3>
+                            </div>
+                        </div>
+                        <!-- SC-003: NO order_line / BoM / BoQ detail
+                             is rendered to the customer. -->
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

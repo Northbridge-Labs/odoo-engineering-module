@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_engineering_request_revision_wizard_form" model="ir.ui.view">
+            <field name="name">engineering.request.revision.wizard.form</field>
+            <field name="model">engineering.request.revision.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Request Revision">
+                    <group>
+                        <field name="project_id" readonly="1"/>
+                        <field name="reason" placeholder="Optional: reason for the revision..."/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_request_revision" type="object"
+                                string="Confirm Revision" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_engineering_request_revision_wizard" model="ir.actions.act_window">
+            <field name="name">Request Revision</field>
+            <field name="res_model">engineering.request.revision.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_project_id': active_id}</field>
+        </record>
+
+    </data>
+</odoo>
