@@ -83,6 +83,15 @@ class TestRevisionFlow(TransactionCase):
                 'product_uom_id': self.uom_unit.id,
             })
 
+    def test_open_request_revision_wizard(self):
+        action = self.project.action_open_request_revision_wizard()
+
+        self.assertEqual(action['type'], 'ir.actions.act_window')
+        self.assertEqual(action['res_model'], 'engineering.request.revision.wizard')
+        self.assertEqual(action['view_mode'], 'form')
+        self.assertEqual(action['target'], 'new')
+        self.assertEqual(action['context'], {'default_project_id': self.project.id})
+
     def test_request_revision_creates_new_draft(self):
         """T060/R13: commercial user runs action_request_revision() →
         revision_number increments, previous revision's sale.order is

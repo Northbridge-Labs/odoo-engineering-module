@@ -30,8 +30,8 @@
                                 string="Send to Commercial" class="oe_highlight"
                                 invisible="state != 'draft'"
                                 groups="engineering.group_engineering_user"/>
-                        <button name="%(engineering.action_engineering_request_revision_wizard)d"
-                                type="action"
+                        <button name="action_open_request_revision_wizard"
+                                type="object"
                                 string="Request Revision"
                                 invisible="state != 'sent_to_commercial'"
                                 groups="engineering.group_commercial_user"/>

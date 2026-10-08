@@ -269,6 +269,18 @@ class EngineeringProject(models.Model):
         )
         return new_project
 
+    def action_open_request_revision_wizard(self):
+        """Open the revision request wizard for this project."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Request Revision'),
+            'res_model': 'engineering.request.revision.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_project_id': self.id},
+        }
+
     def action_open_quotation(self):
         """Smart button: open the linked sale.order quotation."""
         self.ensure_one()
