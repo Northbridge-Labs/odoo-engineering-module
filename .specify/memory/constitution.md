@@ -1,5 +1,24 @@
 <!--
 === Sync Impact Report ===
+Version change: 1.0.0 → 1.1.0
+- Module is now open source (LGPL-3) with per-Odoo-series branches
+  (18.0, 19.0) and a private enterprise repository.
+
+Modified sections:
+- IV. Odoo Conventions: manifest MUST declare license, price, currency; version example updated.
+- Odoo Module Constraints: cross-version support is now in scope via series branches.
+- Development Workflow: added Branching & Release Flow; PR targets the oldest series branch.
+- Governance: removed stale "initial models/models.py" reference.
+
+Added sections:
+- VI. Open Source & Licensing
+- Branching & Release Flow (under Development Workflow)
+
+Templates requiring updates: none (generic references remain compatible).
+
+Follow-up TODOs: none.
+
+=== Previous Sync Impact Report (1.0.0) ===
 Version change: 0.0.0 (uninitialized template) → 1.0.0
 - Initial ratification of project constitution.
 
@@ -97,7 +116,9 @@ exactly. Deviations require documented justification in the plan.
 
 - `__manifest__.py` keys, naming, `depends`, `data`/`demo` ordering
   follow the official manifest spec; `version` follows `X.Y.Z` Odoo
-  convention (e.g. `17.0.1.0.0`).
+  convention (e.g. `18.0.1.0.0`), always prefixed by the Odoo series of its
+  branch. The manifest MUST declare `license` (`LGPL-3`), `price`
+  and `currency`.
 - Every new model MUST declare `_name`, `_description`, and
   `_order`; `_rec_name` is set or a `_rec_name_search` override
   provides a display name.
@@ -134,6 +155,27 @@ deliberately.
 **Rationale**: Odoo upgrades and long-term maintenance punish
 uncontrolled complexity and silent behavior.
 
+### VI. Open Source & Licensing
+
+The module is published under **LGPL-3**. The repository root MUST
+contain `LICENSE` and `README.md`, and the manifest `license` key MUST
+be `LGPL-3`.
+
+- Every contribution is accepted under LGPL-3; external contributors
+  agree to this via the README contributing section.
+- No secrets, customer data, or proprietary code may be committed to
+  the public repository.
+- Enterprise-only features live in a separate private repository, as
+  an addon (e.g. `engineering_enterprise`) that depends on this module
+  and extends it via inheritance (see Principle II). The public module
+  MUST NOT depend on enterprise code.
+- Enterprise features are released to the public repository only by
+  deliberate, reviewed promotion (yearly), never by merging private
+  history wholesale.
+
+**Rationale**: a clean public/private boundary keeps the open-source
+module self-contained and makes yearly promotion low-risk.
+
 ## Odoo Module Constraints
 
 - **Language/Runtime**: Python 3 (matching the target Odoo major
@@ -148,9 +190,10 @@ uncontrolled complexity and silent behavior.
 - **Storage**: PostgreSQL via the Odoo ORM. No raw SQL except in
   documented performance-critical paths with a `_auto`-compatible
   rationale.
-- **Target platform**: the Odoo major version declared in
-  `__manifest__.py` `version`. Cross-version support is out of scope
-  unless explicitly added.
+- **Target platform**: the Odoo series declared in `__manifest__.py`
+  `version`. Each supported series (currently 18.0 and 19.0) has its
+  own branch named after the series; a single branch never supports
+  multiple series.
 - **Security**: principle of least privilege in
   `ir.model.access.csv`; multi-company rules via
   `res.company` record rules when applicable.
@@ -167,7 +210,8 @@ uncontrolled complexity and silent behavior.
   and is re-checked after Phase 1 design. Violations require a
   Complexity Tracking entry or a constitution amendment.
 - **Branch**: one feature branch per spec, named
-  `[###]-feature-name` matching the spec folder.
+  `[###]-feature-name` matching the spec folder, created from and
+  merged into the oldest supported series branch (see below).
 - **Commit cadence**: commit after each task or logical group; tests
   must pass on the fresh-test DB before committing.
 - **Code review**: every PR MUST reference the spec and verify (a)
@@ -178,16 +222,31 @@ uncontrolled complexity and silent behavior.
   `-i engineering --stop-after-init`; all tests green; no Odoo log
   warnings at WARNING+ level during install or test run.
 
+### Branching & Release Flow
+
+- Series branches `18.0` and `19.0` are long-lived; `main` tracks the
+  newest series.
+- Changes land on the oldest supported series first, then are
+  forward-ported by merging into each newer series (`18.0` → `19.0`),
+  adapting to API changes. Newer branches MUST NOT be merged into
+  older ones.
+- Series-specific changes are committed directly on that series branch.
+- Each release bumps the manifest `version` and is tagged
+  `<series>-<major>.<minor>.<patch>`.
+- Adding a new series requires: branching from the previous series,
+  setting the manifest version prefix, passing the full test suite, and
+  updating the README branch table.
+- The private enterprise repository merges public `main`/series
+  branches regularly; promotion to public follows Principle VI.
+
 ## Governance
 
 This constitution is the single source of truth for the
-`engineering` Odoo module. It supersedes ad-hop preferences, prior
+`engineering` Odoo module. It supersedes ad-hoc preferences, prior
 scaffolds, and individual conventions.
 
 - **Supremacy**: any conflict between this constitution and another
-  practice, this constitution wins. The scaffold shipped in the
-  repository's initial `models/models.py` (commented sample) is
-  explicitly superseded.
+  practice, this constitution wins.
 - **Amendment procedure**: amendments require (1) a written proposal,
   (2) impact analysis on existing specs/tasks, (3) a migration plan
   for in-flight work, and (4) an updated version bump. An amendment
@@ -203,4 +262,4 @@ scaffolds, and individual conventions.
   day-to-day development guidance; this constitution governs
   principles, not tactics.
 
-**Version**: 1.0.0 | **Ratified**: 2026-08-20 | **Last Amended**: 2026-08-20
+**Version**: 1.1.0 | **Ratified**: 2026-08-20 | **Last Amended**: 2026-10-08
