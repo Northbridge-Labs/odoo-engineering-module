@@ -23,12 +23,17 @@ Manages the engineering-to-quotation-to-manufacturing flow:
 Follows SOLID principles and Odoo 18 module development best practices.
     """,
 
-    'author': 'Lucas Pereira',
+    'author': 'Lucas Pereira, Northbridge Labs',
+    'maintainer': 'Northbridge Labs',
     'website': 'https://www.northbridgelabs.com.br',
+    'support': 'https://github.com/Northbridge-Labs/odoo-engineering-module/issues',
 
     'category': 'Services/Engineering',
 
     'version': '18.0.1.0.1',
+    'license': 'LGPL-3',
+    'price': 0.00,
+    'currency': 'USD',
 
     'depends': [
         'base',
@@ -59,4 +64,7 @@ Follows SOLID principles and Odoo 18 module development best practices.
     'demo': [
         'demo/demo.xml',
     ],
+    'application': True,
+    'installable': True,
+    'auto_install': False,
 }
