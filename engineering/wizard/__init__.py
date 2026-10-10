@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 """Engineering wizard package."""
 
-from . import request_revision
+from ..wizard import request_revision
