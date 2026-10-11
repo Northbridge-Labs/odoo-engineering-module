@@ -74,6 +74,10 @@ odoo-bin -d <test_db> -i engineering --test-enable --stop-after-init
 Issues and pull requests are welcome. By contributing you agree that your
 contribution is licensed under LGPL-3.
 
+## Corporate support
+
+Get in touch for corporate support: contato@northbridgelabs.com.br
+
 ## License
 
 [LGPL-3](LICENSE) — Copyright (c) Northbridge Labs.
